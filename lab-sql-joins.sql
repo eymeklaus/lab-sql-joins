@@ -35,19 +35,11 @@ JOIN staff st ON p.staff_id = st.staff_id
 JOIN store s ON st.store_id = s.store_id
 GROUP BY s.store_id;
 
-
-SELECT 
-f.film_id, 
-f.title, 
-AVG(length),
-c.category_id,
-ca.name
-FROM film as f
-JOIN film_category as c
-ON f.film_id = c.category_id
-JOIN category as ca
-ON c.category_id = ca.category_id
-GROUP BY c.category_id;
+SELECT category.name, ROUND(AVG(film.length),2) AS average_running_time
+FROM category
+JOIN film_category ON category.category_id = film_category.category_id
+JOIN film ON film_category.film_id = film.film_id
+GROUP BY category.name;
 
 SELECT 
     ca.category_id,
